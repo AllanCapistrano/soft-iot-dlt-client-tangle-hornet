@@ -1,13 +1,17 @@
 package dlt.client.tangle.hornet.model.transactions;
 
-import dlt.client.tangle.hornet.enums.TransactionType;
-import dlt.client.tangle.hornet.model.tangle.Payload;
-
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
+import dlt.client.tangle.hornet.enums.TransactionType;
+import dlt.client.tangle.hornet.model.tangle.Payload;
+import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
+import dlt.client.tangle.hornet.model.transactions.reputation.ReputationService;
+import dlt.client.tangle.hornet.model.transactions.reputation.ReputationServiceReply;
+import dlt.client.tangle.hornet.model.transactions.reputation.ReputationServiceRequest;
+import dlt.client.tangle.hornet.model.transactions.reputation.ReputationServiceResponse;
 import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -78,6 +82,14 @@ public class Transaction {
       return gson.fromJson(reader, Status.class);
     } else if (type.equals(TransactionType.REP_EVALUATION.name())) {
       return gson.fromJson(reader, Evaluation.class);
+    } else if (type.equals(TransactionType.REP_SVC.name())) {
+      return gson.fromJson(reader, ReputationService.class);
+    } else if (type.equals(TransactionType.REP_SVC_REPLY.name())) {
+      return gson.fromJson(reader, ReputationServiceReply.class);
+    } else if (type.equals(TransactionType.REP_SVC_REQ.name())) {
+      return gson.fromJson(reader, ReputationServiceRequest.class);
+    } else if (type.equals(TransactionType.REP_SVC_RES.name())) {
+      return gson.fromJson(reader, ReputationServiceResponse.class);
     } else {
       return gson.fromJson(reader, LBDevice.class);
     }
