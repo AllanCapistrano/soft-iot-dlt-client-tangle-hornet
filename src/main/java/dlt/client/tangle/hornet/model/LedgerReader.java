@@ -127,6 +127,7 @@ public class LedgerReader implements ILedgerReader, Runnable {
    * Get a transaction by a given transaction ID.
    *
    * @param transactionId String - transaction ID.
+   * @return Transaction
    */
   @Override
   public Transaction getTransactionById(String transactionId) {

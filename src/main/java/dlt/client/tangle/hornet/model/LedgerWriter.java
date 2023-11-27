@@ -92,7 +92,7 @@ public class LedgerWriter implements ILedgerWriter, Runnable {
     try {
       URL url = new URL(String.format("%s/%s", this.urlApi, ENDPOINT));
 
-      // Abrir conexão HTTP
+      /* Open HTTP connection. */
       HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
       connection.setRequestMethod("POST");
@@ -105,7 +105,7 @@ public class LedgerWriter implements ILedgerWriter, Runnable {
         data
       );
 
-      // Escrever o corpo da requisição no OutputStream
+      /* Writes request body to OutputStream */
       try (
         DataOutputStream outputStream = new DataOutputStream(
           connection.getOutputStream()
@@ -115,10 +115,10 @@ public class LedgerWriter implements ILedgerWriter, Runnable {
         outputStream.flush();
       }
 
-      // Obter a resposta da requisição
+      /* Receives the response */
       int responseCode = connection.getResponseCode();
 
-      // Ler a resposta da API
+      /* Reads API response */
       if (responseCode == HttpURLConnection.HTTP_OK) {
         BufferedReader in = new BufferedReader(
           new InputStreamReader(connection.getInputStream())
@@ -140,7 +140,7 @@ public class LedgerWriter implements ILedgerWriter, Runnable {
         }
       }
 
-      // Fechar a conexão
+      /* Close the connection. */
       connection.disconnect();
     } catch (IOException ioe) {
       if (debugModeValue) {
