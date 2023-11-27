@@ -62,9 +62,14 @@ public class LedgerReader implements ILedgerReader, Runnable {
    * Get all transactions by a given index.
    *
    * @param index String - Message index
+   * @param showMessages boolean - Toggle JSON messages view.
+   * @return List<Transaction>
    */
   @Override
-  public List<Transaction> getTransactionsByIndex(String index) {
+  public List<Transaction> getTransactionsByIndex(
+    String index,
+    boolean showMessages
+  ) {
     boolean isNullable = false;
     String response = null;
     List<Transaction> transactions = new ArrayList<Transaction>();
@@ -101,7 +106,7 @@ public class LedgerReader implements ILedgerReader, Runnable {
 
       if (!isNullable) {
         transactions =
-          Transaction.jsonArrayInStringToTransaction(response, debugModeValue);
+          Transaction.jsonArrayInStringToTransaction(response, showMessages);
       }
 
       return transactions;
