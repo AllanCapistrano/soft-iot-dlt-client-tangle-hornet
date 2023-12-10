@@ -8,10 +8,8 @@ import com.google.gson.stream.JsonReader;
 import dlt.client.tangle.hornet.enums.TransactionType;
 import dlt.client.tangle.hornet.model.tangle.Payload;
 import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
+import dlt.client.tangle.hornet.model.transactions.reputation.HasReputationService;
 import dlt.client.tangle.hornet.model.transactions.reputation.ReputationService;
-import dlt.client.tangle.hornet.model.transactions.reputation.ReputationServiceReply;
-import dlt.client.tangle.hornet.model.transactions.reputation.ReputationServiceRequest;
-import dlt.client.tangle.hornet.model.transactions.reputation.ReputationServiceResponse;
 import java.io.StringReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -82,14 +80,15 @@ public class Transaction {
       return gson.fromJson(reader, Status.class);
     } else if (type.equals(TransactionType.REP_EVALUATION.name())) {
       return gson.fromJson(reader, Evaluation.class);
-    } else if (type.equals(TransactionType.REP_SVC.name())) {
+    } else if (
+      type.equals(TransactionType.REP_SVC_HUMIDITY_SENSOR.name()) ||
+      type.equals(TransactionType.REP_SVC_PULSE_OXYMETER.name()) ||
+      type.equals(TransactionType.REP_SVC_THERMOMETER.name()) ||
+      type.equals(TransactionType.REP_SVC_WIND_DIRECTION_SENSOR.name())
+    ) {
       return gson.fromJson(reader, ReputationService.class);
-    } else if (type.equals(TransactionType.REP_SVC_REPLY.name())) {
-      return gson.fromJson(reader, ReputationServiceReply.class);
-    } else if (type.equals(TransactionType.REP_SVC_REQ.name())) {
-      return gson.fromJson(reader, ReputationServiceRequest.class);
-    } else if (type.equals(TransactionType.REP_SVC_RES.name())) {
-      return gson.fromJson(reader, ReputationServiceResponse.class);
+    } else if (type.equals(TransactionType.REP_HAS_SVC.name())) {
+      return gson.fromJson(reader, HasReputationService.class);
     } else {
       return gson.fromJson(reader, LBDevice.class);
     }

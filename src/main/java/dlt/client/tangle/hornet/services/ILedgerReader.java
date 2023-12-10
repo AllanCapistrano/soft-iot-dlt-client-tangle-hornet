@@ -9,7 +9,7 @@ import dlt.client.tangle.hornet.model.transactions.Transaction;
  * @version 1.0.0
  */
 public interface ILedgerReader {
-  public List<Transaction> getTransactionsByIndex(String index);
+  public List<Transaction> getTransactionsByIndex(String index, boolean showMessages);
 
   public Transaction getTransactionById(String messageId);
 

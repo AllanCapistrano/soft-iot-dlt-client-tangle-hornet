@@ -1,12 +1,11 @@
 package dlt.client.tangle.hornet.model;
 
+import com.google.gson.Gson;
 import dlt.client.tangle.hornet.model.tangle.Message;
 import dlt.client.tangle.hornet.model.tangle.Payload;
 import dlt.client.tangle.hornet.model.transactions.Transaction;
 import dlt.client.tangle.hornet.services.ILedgerReader;
 import dlt.client.tangle.hornet.services.ILedgerSubscriber;
-
-import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -63,9 +62,15 @@ public class LedgerReader implements ILedgerReader, Runnable {
    * Get all transactions by a given index.
    *
    * @param index String - Message index
+   * @param showMessages boolean - Toggle JSON messages view.
+   * @return List<Transaction>
    */
   @Override
-  public List<Transaction> getTransactionsByIndex(String index) {
+  public List<Transaction> getTransactionsByIndex(
+    String index,
+    boolean showMessages
+  ) {
+    boolean isNullable = false;
     String response = null;
     List<Transaction> transactions = new ArrayList<Transaction>();
 
@@ -88,13 +93,21 @@ public class LedgerReader implements ILedgerReader, Runnable {
       String temp = null;
 
       while ((temp = br.readLine()) != null) {
+        if (temp.equals("null")) {
+          isNullable = true;
+
+          break;
+        }
+
         response = temp;
       }
 
       conn.disconnect();
 
-      transactions =
-        Transaction.jsonArrayInStringToTransaction(response, debugModeValue);
+      if (!isNullable) {
+        transactions =
+          Transaction.jsonArrayInStringToTransaction(response, showMessages);
+      }
 
       return transactions;
     } catch (MalformedURLException mue) {
@@ -114,6 +127,7 @@ public class LedgerReader implements ILedgerReader, Runnable {
    * Get a transaction by a given transaction ID.
    *
    * @param transactionId String - transaction ID.
+   * @return Transaction
    */
   @Override
   public Transaction getTransactionById(String transactionId) {
