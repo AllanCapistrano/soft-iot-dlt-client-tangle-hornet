@@ -169,12 +169,13 @@ public class Transaction {
 
   @Override
   public String toString() {
-    return new StringBuilder("Transaction: ")
-      .append(this.source)
-      .append(this.group)
-      .append(this.type)
-      .append(this.createdAt)
-      .append(this.publishedAt)
-      .toString();
+    return String.format(
+      "Transaction (%s) - Source: %s | Group: %s | Created At: %d | Published At %d",
+      this.type.name(),
+      this.getSource(),
+      this.getGroup(),
+      this.createdAt,
+      this.publishedAt
+    );
   }
 }
