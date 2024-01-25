@@ -20,13 +20,13 @@ public class Evaluation extends TargetedTransaction {
     String target,
     String group,
     TransactionType type,
-    float nodeCredibility,
     int serviceEvaluation,
+    float nodeCredibility,
     float value
   ) {
     super(source, group, type, target);
-    this.nodeCredibility = nodeCredibility;
     this.serviceEvaluation = serviceEvaluation;
+    this.nodeCredibility = nodeCredibility;
     this.value = value;
   }
 
