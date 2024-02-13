@@ -7,6 +7,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 import dlt.client.tangle.hornet.enums.TransactionType;
 import dlt.client.tangle.hornet.model.tangle.Payload;
+import dlt.client.tangle.hornet.model.transactions.reputation.Credibility;
 import dlt.client.tangle.hornet.model.transactions.reputation.Evaluation;
 import dlt.client.tangle.hornet.model.transactions.reputation.HasReputationService;
 import dlt.client.tangle.hornet.model.transactions.reputation.ReputationService;
@@ -19,7 +20,7 @@ import java.util.logging.Logger;
 /**
  *
  * @author Allan Capistrano, Uellington Damasceno
- * @version 1.0.0
+ * @version 1.2.0
  */
 public class Transaction {
 
@@ -89,6 +90,8 @@ public class Transaction {
       return gson.fromJson(reader, ReputationService.class);
     } else if (type.equals(TransactionType.REP_HAS_SVC.name())) {
       return gson.fromJson(reader, HasReputationService.class);
+    } else if(type.equals(TransactionType.REP_CREDIBILITY.name())) {
+      return gson.fromJson(reader, Credibility.class);
     } else {
       return gson.fromJson(reader, LBDevice.class);
     }
@@ -169,12 +172,13 @@ public class Transaction {
 
   @Override
   public String toString() {
-    return new StringBuilder("Transaction: ")
-      .append(this.source)
-      .append(this.group)
-      .append(this.type)
-      .append(this.createdAt)
-      .append(this.publishedAt)
-      .toString();
+    return String.format(
+      "Transaction (%s) - Source: %s | Group: %s | Created At: %d | Published At %d",
+      this.type.name(),
+      this.getSource(),
+      this.getGroup(),
+      this.createdAt,
+      this.publishedAt
+    );
   }
 }

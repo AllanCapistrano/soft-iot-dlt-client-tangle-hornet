@@ -3,7 +3,7 @@ package dlt.client.tangle.hornet.enums;
 /**
  *
  * @author Uellington Damasceno, Allan Capistrano
- * @version 1.1.1
+ * @version 1.2.0
  */
 public enum TransactionType {
   LB_ENTRY,
@@ -18,4 +18,5 @@ public enum TransactionType {
   REP_SVC_PULSE_OXYMETER,
   REP_SVC_WIND_DIRECTION_SENSOR,
   REP_EVALUATION,
+  REP_CREDIBILITY
 }
