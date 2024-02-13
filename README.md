@@ -14,3 +14,6 @@ O `soft-iot-dlt-client-tangle-hornet` é o _bundle_ responsável por provê a se
 | ZMQ_SOCKET_URL | Define qual é a URL do sistema de mensageria que utilizado pela rede para notificar o estado das transações. | 127.0.0.1 |
 | ZMQ_SOCKET_PORT | Define qual é a porta do sistema de mensageria que utilizado pela rede para notificar o estado das transações. | 5556
 | debugModeValue | Define se serão exibidas mensagens de depuração | true |
+
+## Licença
+[GPL-3.0 License](./LICENSE)
